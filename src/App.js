@@ -6,6 +6,7 @@ import User from './UserComponent/Home'
 import AddUser from './UserComponent/AddUser'
 import SearchUser from './UserComponent/SearchUser';
 import ListUsers from './UserComponent/ListUsers';
+import UpdateUser from './UserComponent/UpdateUser';
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/search-user" element={<SearchUser />} />
           <Route path="/list-users" element={<ListUsers />} />
+          <Route path="/update-user/:id" element={<UpdateUser/>} />
 
           {/* Uncomment these when needed:
           
