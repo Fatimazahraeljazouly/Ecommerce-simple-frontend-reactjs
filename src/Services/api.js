@@ -21,7 +21,7 @@ export const postUserData = async (data) => {
     try{
 
         const response = await axios.post(`${API_BASE_URL}/addUser`, data);
-       console.log("added succefly");
+       console.log("added successfully");
         
         return response.data;
     }
@@ -35,7 +35,7 @@ export const postUserData = async (data) => {
 export const deleteUser= async (IdUser)=>{
   try{
     const response= await axios.delete(`${API_BASE_URL}/delete/${IdUser}`)
-    console.log("delete succefly");
+    console.log("delete successfully");
     return response.data;
 }catch(e){
     console.error('error in deleting user',e)
@@ -45,7 +45,7 @@ export const deleteUser= async (IdUser)=>{
 export const updateUser=async(IdUser,userData)=>{
     try{
         const response = await axios.put(`${API_BASE_URL}/update/${IdUser}`,userData);
-        console.log("update succefly");
+        console.log("update successfully");
         return response.data;
     }catch(e){
         console.error("something went wrong during updating ",e);
@@ -55,10 +55,44 @@ export const updateUser=async(IdUser,userData)=>{
 export const getUserById=async (Id)=>{
     try{
         const response = await axios.get(`${API_BASE_URL}/getbyid/${Id}`);
-        console.log("user finded");
+        console.log("user founded");
         return response.data
     }catch(e){
         console.error("user not found or something went wrong",e);
+        throw e;
+    }
+};
+const API_BASE_URL_art = 'http://localhost:8083/api/articles'; // Replace with your API base URL
+
+export const addArticle=async (articleData)=>{
+    try{
+        const response =await axios.post(`${API_BASE_URL_art}/addArticle`,articleData);
+        console.log("article added successfully");
+        return response.data;
+    }catch(e){
+            console.error("error at adding the article ",e)
+            throw e;
+    }
+}
+
+export const getALLArticle=async()=>{
+
+    try{
+        const response=await axios.get(`${API_BASE_URL_art}/list-articls`);
+        console.log("data exist");
+        return response.data;
+    }catch(e){
+        console.error("error during getting data",e)
+        throw e;
+    }
+}
+export const deletArticle=async(Id)=>{
+    try{
+            const response = await axios.delete(`${API_BASE_URL_art}/delete/${Id}`);
+            console.log("article deleted successfully");
+            return response.data;
+    }catch(e){
+        console.error("error during deleting tha article",e);
         throw e;
     }
 }

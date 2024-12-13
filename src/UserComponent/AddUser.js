@@ -22,10 +22,8 @@ const AddUser = () => {
     try {
       const response = await postUserData(userData);
       console.log('User added successfully:', response);
-      // Handle success (e.g., redirect or show success message)
     } catch (error) {
       console.error('Error adding user:', error);
-      // Handle error (e.g., show error message)
     }
   };
   return (
