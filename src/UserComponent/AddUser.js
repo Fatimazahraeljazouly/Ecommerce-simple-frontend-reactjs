@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../Indexing/Header';
 import Footer from '../Indexing/Footer';
 import { postUserData } from '../Services/api';
-import { useState } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const AddUser = () => {
   const [userData, setUserData] = useState({
     login: '',
@@ -15,20 +17,39 @@ const AddUser = () => {
     e.preventDefault();
 
     if (userData.password !== userData.confirmedPassword) {
-      alert("Passwords don't match");
+      toast.warn("Passwords don't match!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        transition: Bounce,
+      });
       return;
     }
 
     try {
       const response = await postUserData(userData);
+      toast.success('User added successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+      });
       console.log('User added successfully:', response);
     } catch (error) {
+      toast.error('Error adding user!', {
+        position: "top-center",
+        autoClose: 5000,
+      });
       console.error('Error adding user:', error);
     }
   };
+
   return (
     <>
       <Header />
+      <ToastContainer />
       <div className='flex flex-1 justify-center mx-auto mt-16'>
         <div className='bg-light w-full max-w-3xl p-8 rounded-lg shadow-md'>
           <h1 className='text-3xl font-semibold text-primary mb-6 text-center'>Add User</h1>
@@ -36,8 +57,13 @@ const AddUser = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="login" className="block text-lg font-medium text-primary">Login:</label>
-                <input type="text" id="login" name="login" required value={userData.login}
-                onChange={(e)=>setUserData({...userData,login:e.target.value})}
+                <input 
+                  type="text" 
+                  id="login" 
+                  name="login" 
+                  required 
+                  value={userData.login}
+                  onChange={(e) => setUserData({ ...userData, login: e.target.value })}
                   className="w-full p-3 border border-secondary rounded-lg mt-2 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -46,7 +72,7 @@ const AddUser = () => {
                 <input
                   type="password"
                   value={userData.password}
-                  onChange={(e)=>setUserData({...userData,password:e.target.value})}
+                  onChange={(e) => setUserData({ ...userData, password: e.target.value })}
                   id="password"
                   name="password"
                   required
@@ -58,8 +84,7 @@ const AddUser = () => {
                 <input
                   type="password"
                   value={userData.confirmedPassword}
-                  onChange={(e)=>
-                    setUserData({...userData,confirmedPassword:e.target.value})}
+                  onChange={(e) => setUserData({ ...userData, confirmedPassword: e.target.value })}
                   id="c-password"
                   name="c-password"
                   required
@@ -70,8 +95,8 @@ const AddUser = () => {
               <div>
                 <label htmlFor="connectionNumber" className="block text-lg font-medium text-primary">Connection Number:</label>
                 <input
-                value={userData.connectionNumber}
-                onChange={(e)=>setUserData({...userData,connectionNumber:e.target.value})}
+                  value={userData.connectionNumber}
+                  onChange={(e) => setUserData({ ...userData, connectionNumber: e.target.value })}
                   type="number"
                   id="connectionNumber"
                   name="connectionNumber"
@@ -94,6 +119,6 @@ const AddUser = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default AddUser;

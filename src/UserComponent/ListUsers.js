@@ -3,6 +3,9 @@ import { getAllUsers ,deleteUser} from '../Services/api';
 import Header from '../Indexing/Header';
 import Footer from '../Indexing/Footer';
 import { Link } from 'react-router';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,12 +28,22 @@ const ListUsers = () => {
     fetchUsers();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return toast.error("Run Tha backend Server", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "light",
+    transition: Bounce,
+  });
   if (error) return <p>{error}</p>;
 
   return (
     <div>
       <Header />
+      <ToastContainer />
       <div className='flex  flex-1 justify-center'>
       <table className="table-auto border-collapse border border-gray-400 w-[90%] mt-9 content-center  ">
         <thead>
@@ -59,10 +72,28 @@ const ListUsers = () => {
                         deleteUser(user.idUser)
                           .then(() => {
                             setUsers((prevUsers) => prevUsers.filter((u) => u.idUser !== user.idUser));
-                            alert('User deleted successfully');
+                            toast.success("User deleted successfully!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+          transition: Bounce,
+        });
                           })
                           .catch((error) => {
-                            alert('Error deleting user');
+                            toast.error("Error deleting user!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+          transition: Bounce,
+        });
                             console.error(error); // Log the error for debugging
                           });
                       }

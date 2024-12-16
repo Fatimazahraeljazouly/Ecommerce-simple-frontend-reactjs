@@ -3,6 +3,8 @@ import Header from '../Indexing/Header';
 import Footer from '../Indexing/Footer';
 import { addArticle } from '../Services/api';
 import { useState } from 'react';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AddArticle = () => {
   const [articleData, setArticleData] = useState({
     price: '',
@@ -16,16 +18,36 @@ const AddArticle = () => {
     
     try {
       const response = await addArticle(articleData);
-      alert("User Added Successfully");
+      alert("Article Added Successfully");
+       toast.success("Article added successfully!", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      theme: "light",
+                                      transition: Bounce,
+                                    });    
       console.log('Article added successfully:', response);
     } catch (error) {
       console.error('Error adding article:', error);
-      alert("error adding article")
+       toast.error("error adding article!", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      theme: "light",
+                                      transition: Bounce,
+                                    });    
     }
   };
   return (
     <>
       <Header />
+      <ToastContainer/>
       <div className='flex flex-1 justify-center mx-auto mt-16'>
         <div className='bg-light w-full max-w-3xl p-8 rounded-lg shadow-md'>
           <h1 className='text-3xl font-semibold text-primary mb-6 text-center'>Add Article</h1>

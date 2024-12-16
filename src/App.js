@@ -9,6 +9,8 @@ import ListUsers from './UserComponent/ListUsers';
 import UpdateUser from './UserComponent/UpdateUser';
 import AddArticle from './ArticleComponent/AddArticle';
 import ListArticle from './ArticleComponent/ListArticle';
+import Command from './Command/home'
+import Payement from './Payement/Home'
 function App() {
   return (
     <Router>
@@ -23,6 +25,8 @@ function App() {
           <Route path="/update-user/:id" element={<UpdateUser/>} />
           <Route path='/add-article' element={<AddArticle/>} />
           <Route path='/list-articles' element={<ListArticle/>} />
+          <Route path='/commands-management' element={<Command/>} />
+          <Route path="/payment-management" element={<Payement />} />
 
           {/* Uncomment these when needed:
           
